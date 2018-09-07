@@ -1,6 +1,6 @@
 from TestingService import Browsers,TestingService
 
-browsersList = [Browsers.firefox.value, Browsers.chrome.value]
+browsersList = [Browsers.Firefox.value]
 test = TestingService(browsersList)
 test.printSelectedBrowsers()
 

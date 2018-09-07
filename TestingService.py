@@ -2,24 +2,26 @@ from enum import Enum
 from selenium import webdriver
 
 class Browsers(Enum):
-    firefox = "1"
-    chrome = "2"
-    opera = "3"
-    internetexplorer = "4"
+    Firefox = "1"
+    Chrome = "2"
+    Opera = "3"
+    Ie = "4"
 
 class TestingService:
     browsers = []
+
     def __init__(self, drivers):
-        #declare which drivers should be used
-        print(drivers)
         for driver in drivers:
             if driver == "1":
-                #there we fire up drivers(browsers and add hanlder to list)
                 self.browsers.append(webdriver.Firefox())
-                print("appended")
             if driver == "2":
-                print("not implemented")
+                self.browsers.append(webdriver.Chrome())
+            if driver == "3":
+                self.browsers.append(webdriver.Opera())
+            if driver == "4":
+                self.browsers.append(webdriver.Ie())
     
+    #for checking passing arguments probably no use in testing 
     def printSelectedBrowsers(self):
         for browser in self.browsers:
             print("driver\n")
