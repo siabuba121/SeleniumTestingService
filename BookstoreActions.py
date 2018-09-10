@@ -1,6 +1,8 @@
 from selenium.webdriver.common.action_chains import ActionChains
 import time
 
+serwisy = ['helion','editio','ebookpoint','onepress','sensus','videopoint','septem','bezdroza',]
+
 class Bookstore:
     logged = dict()
     
@@ -37,3 +39,19 @@ class Bookstore:
 
             downloadButton = webdriver.find_element_by_css_selector(".modalbutton#"+format+"_button")
             downloadButton.click()
+
+    @staticmethod
+    def tryToAddBonToBasket(webdriver,service,bonid):
+        if Bookstore.logged[service] != 1:
+            print("User nie jest zalogowany do serissu "+service+"\n")
+        else:
+            webdriver.get("https://"+service+".pl/zakupy/edit.cgi?xoxo=12345")
+            
+            if webdriver.find_element_by_css_selector("#kuponinp").is_displayed() == 0:
+                webdriver.execute_script("jQuery(\"#strefapromocji .checkbox-line label\")[2].click()")
+
+            inputKupon = webdriver.find_element_by_css_selector("#kuponinp")
+            inputKupon.send_keys(bonid)
+            submit = webdriver.find_element_by_css_selector("#kuponok")
+            submit.click()
+            time.sleep(5)
