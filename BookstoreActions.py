@@ -1,7 +1,7 @@
 from selenium.webdriver.common.action_chains import ActionChains
 import time
 
-serwisy = ['helion','editio','ebookpoint','onepress','sensus','videopoint','septem','bezdroza',]
+serwisy = ['videopoint','helion','editio','ebookpoint','onepress','sensus','septem','bezdroza',]
 
 class Bookstore:
     logged = dict()
@@ -32,10 +32,10 @@ class Bookstore:
             search.send_keys(title)
             bookelem = webdriver.find_element_by_css_selector(".list.lista .cover")
             ActionChains(webdriver).click(bookelem).perform()
-             
+
             while webdriver.find_element_by_css_selector(".spinnerdiv").is_displayed():
-                 #loop to wait for position to be generated
-                 time.sleep(2)
+                #loop to wait for position to be generated
+                time.sleep(2)
 
             downloadButton = webdriver.find_element_by_css_selector(".modalbutton#"+format+"_button")
             downloadButton.click()
@@ -49,9 +49,13 @@ class Bookstore:
             
             if webdriver.find_element_by_css_selector("#kuponinp").is_displayed() == 0:
                 webdriver.execute_script("jQuery(\"#strefapromocji .checkbox-line label\")[2].click()")
+                print("3 opcja")
 
             inputKupon = webdriver.find_element_by_css_selector("#kuponinp")
             inputKupon.send_keys(bonid)
             submit = webdriver.find_element_by_css_selector("#kuponok")
-            submit.click()
-            time.sleep(5)
+            if service == "videopoint":
+                webdriver.execute_script("jQuery(\"#kuponok\").click()")
+            else:
+                submit.click()
+            time.sleep(2)
