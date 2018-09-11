@@ -17,8 +17,6 @@ class Bookstore:
         click_action = ActionChains(webdriver)
         click_action.click(button)
         click_action.perform()
-        #should add some wait till user i logged
-        time.sleep(3)
         #some functions will require user to be logged in so i  added flags if user is actually logged on each service
         Bookstore.logged[service] = 1
 
@@ -58,4 +56,31 @@ class Bookstore:
                 webdriver.execute_script("jQuery(\"#kuponok\").click()")
             else:
                 submit.click()
+
             time.sleep(2)
+    
+    @staticmethod
+    def addPositionToBasket(webdriver, service, ident, format):
+        #okreslanie formatu
+        if format == "ebook":
+            format = "#format/e"
+            btn_id = "ebook"
+        elif format == "druk":
+            format = "#format/d"
+            btn_id = ""
+        elif format == "audiobook":
+            format = "#format/3"
+            btn_id = "3"
+
+        webdriver.get("https://"+service+".pl/ksiazka.cgi?book_id="+ident+format)
+        webdriver.find_element_by_css_selector("#addToBasket_"+ident+"_"+btn_id).click()
+        time.sleep(4)
+
+    @staticmethod
+    def placeOrder(webdriver, service):
+        webdriver.get("https://"+service+".pl/zakupy/edit.cgi")
+        #unclickable error i
+        #webdriver.find_element_by_css_selector("#zamowienie .button button").click()
+        webdriver.execute_script("jQuery(\"#zamowienie .button button\").click()")
+        time.sleep(4)
+        #not finished

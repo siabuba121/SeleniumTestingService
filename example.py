@@ -27,5 +27,13 @@ def test4(driver):
         Bookstore.loginToBookstore(driver,serwis,username,password)
         Bookstore.tryToAddBonToBasket(driver,serwis,bon)
 
-test.fireTest(test4)
+def test5(driver):
+    Bookstore.loginToBookstore(driver,"ebookpoint",username,password)
+    Bookstore.addPositionToBasket(driver, "ebookpoint", "e_0unv", "ebook")
+
+def test6(driver):
+    Bookstore.loginToBookstore(driver,"ebookpoint",username,password)
+    Bookstore.placeOrder(driver,"ebookpoint")
+
+test.fireTest(test6)
 test.endTests()
