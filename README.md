@@ -1,8 +1,8 @@
 # SeleniumTestingService
 Small python library wchich uses selenium webdriver to perform tests on Bookstores
 
-Basic use 
-...
+# Basic use 
+```python
 #required files and objects
 from TestingService import Browsers, TestingService, ScreenSize
 from BookstoreActions import Bookstore,serwisy
@@ -19,4 +19,4 @@ def test1(driver):
   
 #pass test to TestingService
 test.fireTest(test1)
-...
+```
