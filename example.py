@@ -4,7 +4,7 @@ from credentials import username,password,bon
 
 
 browsersList = [Browsers.Chrome.value]
-test = TestingService(browsersList,ScreenSize.fullhd)
+test = TestingService(browsersList,ScreenSize.iphone7)
 test.printSelectedBrowsers()
 
 def test1(driver):
@@ -19,6 +19,7 @@ def test2(driver):
 
 def test3(driver):
     Bookstore.loginToBookstore(driver,"ebookpoint",username,password)
+    #it can bee just a prt of title its required to search in library
     Bookstore.tryToDownloadPosition(driver, "ebookpoint", "nowoczesny javascript. poznaj es6 i praktyczne","mobi")
 
 #test bony
@@ -35,5 +36,5 @@ def test6(driver):
     Bookstore.loginToBookstore(driver,"ebookpoint",username,password)
     Bookstore.placeOrder(driver,"ebookpoint")
 
-test.fireTest(test6)
+test.fireTest(test5)
 test.endTests()

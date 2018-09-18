@@ -13,10 +13,7 @@ class Bookstore:
         login.send_keys(username)
         haslo = webdriver.find_element_by_name("haslo")
         haslo.send_keys(password)
-        button = webdriver.find_element_by_css_selector(".form.form-left fieldset .buttons button")
-        click_action = ActionChains(webdriver)
-        click_action.click(button)
-        click_action.perform()
+        button = webdriver.find_element_by_css_selector(".form.form-left fieldset .buttons button").click()
         #some functions will require user to be logged in so i  added flags if user is actually logged on each service
         Bookstore.logged[service] = 1
 
@@ -61,7 +58,7 @@ class Bookstore:
     
     @staticmethod
     def addPositionToBasket(webdriver, service, ident, format):
-        #okreslanie formatu
+        #specifying format
         if format == "ebook":
             format = "#format/e"
             btn_id = "ebook"
@@ -79,8 +76,5 @@ class Bookstore:
     @staticmethod
     def placeOrder(webdriver, service):
         webdriver.get("https://"+service+".pl/zakupy/edit.cgi")
-        #unclickable error i
-        #webdriver.find_element_by_css_selector("#zamowienie .button button").click()
         webdriver.execute_script("jQuery(\"#zamowienie .button button\").click()")
         time.sleep(4)
-        #not finished

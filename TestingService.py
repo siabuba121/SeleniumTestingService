@@ -12,6 +12,7 @@ class Browsers(Enum):
 class ScreenSize(Enum):
     hd = [1280,720]
     fullhd = [1920,1080]
+    iphone7 = [750,1334]
 
 class TestingService:
     browsers = []
