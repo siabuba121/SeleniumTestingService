@@ -20,3 +20,9 @@ def test1(driver):
 #pass test to TestingService
 test.fireTest(test1)
 ```
+# BookstoreActions 
+  - Login to bookstore
+```python
+def test2(driver):
+    Bookstore.loginToBookstore(driver,service,username,password)
+```
