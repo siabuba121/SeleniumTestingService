@@ -40,7 +40,7 @@ def test(driver):
 ```python
 def test(dirver):
      Bookstore.loginToBookstore(driver,service,username,password)
-     Bookstore.tryToAddBonToBasket(driver,service,bon)
+     Bookstore.tryToAddBonToBasket(driver,service,giftcardCode)
 ```
   - Add position to basket
 ```python
