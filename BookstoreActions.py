@@ -81,7 +81,7 @@ class Bookstore:
         time.sleep(4)
     
     @staticmethod
-    def searchForPositionMainPage(webdriver, service, searchPhrase, callbackAction, callbackActionParam):
+    def searchForPositionMainPage(webdriver, service, searchPhrase, callbackAction="", callbackActionParam=""):
         webdriver.get("https://"+service+".pl")
         search = webdriver.find_element_by_css_selector("#inputSearch")
         search.send_keys(searchPhrase)
@@ -95,6 +95,7 @@ class Bookstore:
         else:
             webdriver.execute_script("alert(\"solr not ok or cannot find phrase\")")
             print("error or not find on service "+service+"\n")
+            Alert(driver).accept()
             time.sleep(2)
 
     @staticmethod

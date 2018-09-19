@@ -38,7 +38,7 @@ def test6(driver):
 
 def test7(driver):
     #search without callback
-    Bookstore.searchForPositionMainPage(driver,'ebookpoint',"java","","")
+    Bookstore.searchForPositionMainPage(driver,'ebookpoint',"java")
 
 def test8(driver):
     #search with callback with argument
@@ -47,5 +47,5 @@ def test8(driver):
 def test9(driver):
     Bookstore.searchForPositionMainPage(driver,'ebookpoint',"java",Bookstore.clickFromSuggestions,"")
 
-test.fireTest(test9)
+test.fireTest(test7)
 test.endTests()
