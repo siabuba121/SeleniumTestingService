@@ -21,6 +21,10 @@ def test(driver):
 test.fireTest(test1)
 ```
 # BookstoreActions 
+  # To use BookstoreAction static methods you need to import this class from file
+```python
+from BookstoreActions import Bookstore
+```
   - Login to bookstore
 ```python
 def test(driver):
