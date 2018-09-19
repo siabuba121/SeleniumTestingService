@@ -36,5 +36,16 @@ def test6(driver):
     Bookstore.loginToBookstore(driver,"ebookpoint",username,password)
     Bookstore.placeOrder(driver,"ebookpoint")
 
-test.fireTest(test5)
+def test7(driver):
+    #search without callback
+    Bookstore.searchForPositionMainPage(driver,'ebookpoint',"java","","")
+
+def test8(driver):
+    #search with callback with argument
+    Bookstore.searchForPositionMainPage(driver,'ebookpoint',"java",Bookstore.clickFromSuggestions,1)
+
+def test9(driver):
+    Bookstore.searchForPositionMainPage(driver,'ebookpoint',"java",Bookstore.clickFromSuggestions,"")
+
+test.fireTest(test9)
 test.endTests()

@@ -1,4 +1,5 @@
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.alert import Alert
 import time
 
 serwisy = ['videopoint','helion','editio','ebookpoint','onepress','sensus','septem','bezdroza',]
@@ -38,7 +39,7 @@ class Bookstore:
     @staticmethod
     def tryToAddBonToBasket(webdriver,service,bonid):
         if Bookstore.logged[service] != 1:
-            print("User nie jest zalogowany do serissu "+service+"\n")
+            print("User nie jest zalogowany do serwisu "+service+"\n")
         else:
             webdriver.get("https://"+service+".pl/zakupy/edit.cgi?xoxo=12345")
             
@@ -78,3 +79,29 @@ class Bookstore:
         webdriver.get("https://"+service+".pl/zakupy/edit.cgi")
         webdriver.execute_script("jQuery(\"#zamowienie .button button\").click()")
         time.sleep(4)
+    
+    @staticmethod
+    def searchForPositionMainPage(webdriver, service, searchPhrase, callbackAction, callbackActionParam):
+        webdriver.get("https://"+service+".pl")
+        search = webdriver.find_element_by_css_selector("#inputSearch")
+        search.send_keys(searchPhrase)
+        time.sleep(2)
+        if webdriver.find_element_by_css_selector(".suggest-list").is_displayed():
+            webdriver.execute_script("alert(\"solr ok\")")
+            if callbackAction:
+                Alert(webdriver).accept()
+                callbackAction(webdriver, callbackActionParam)
+            return
+        else:
+            webdriver.execute_script("alert(\"solr not ok or cannot find phrase\")")
+            print("error or not find on service "+service+"\n")
+            time.sleep(2)
+
+    @staticmethod
+    def clickFromSuggestions(webdriver, which):
+        if which == "":
+            webdriver.find_element_by_css_selector(".suggest-list .wszystkie .button a").click()
+        elif which>0:
+            suggestions = webdriver.find_elements_by_css_selector(".suggest-list .suggest-ksiazka")
+            if len(suggestions) != 0:
+                suggestions[which-1].click()
