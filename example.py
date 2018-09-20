@@ -45,7 +45,7 @@ def test8(driver):
     Bookstore.searchForPositionMainPage(driver,'ebookpoint',"java",Bookstore.clickFromSuggestions,1)
 
 def test9(driver):
-    Bookstore.searchForPositionMainPage(driver,'ebookpoint',"java",Bookstore.clickFromSuggestions,"")
+    Bookstore.searchForPositionMainPage(driver,'ebookpoint',"java",Bookstore.clickFromSuggestions)
 
 test.fireTest(test7)
 test.endTests()
