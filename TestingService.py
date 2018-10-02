@@ -17,6 +17,11 @@ class ScreenSize(Enum):
 class TestingService:
     browsers = []
 
+    ###
+    #construtor that creates testingServiceObj and webdriversObject that were requested
+    #@param drivers array(Browsers) (requested webdrivers)
+    #@param screenSize ScreenSize (resolution array enum)
+    ###
     def __init__(self, drivers, screenSize):
 
         for driver in drivers:
@@ -31,24 +36,34 @@ class TestingService:
 
         self.setScreenSize(screenSize)
 
-    #screen size set
+    ###
+    #method for setting screen size
+    #@param screenSize ScreenSize (resolution array enum)
+    ###
     def setScreenSize(self, screenSize):
         if screenSize == "":
             screenSize = ScreenSize.hd
         for driver in self.browsers:
             driver.set_window_size(screenSize.value[0],screenSize.value[1])
 
-
+    ###
     #for checking passing arguments probably no use in testing 
+    ###
     def printSelectedBrowsers(self):
         for browser in self.browsers:
             print(browser)
 
+    ###
     #test is a function passed as argument it should have specified argument for a driver
+    #@param test function (test function that will be fired with drivers that were init)
+    ###
     def fireTest(self, test):
         for browser in self.browsers:
             test(browser)
 
+    ###
+    #setting options for firefox to skip download window currently not working properly
+    ###
     def getAutoDownloadOptionsFirefox(self):
         profile = FirefoxProfile()
         profile.set_preference("browser.download.panel.shown", False)
@@ -59,6 +74,9 @@ class TestingService:
 
         return profile
 
+    ###
+    #closing all webdrivers 
+    ###
     def endTests(self):
         time.sleep(2)
         for driver in self.browsers:

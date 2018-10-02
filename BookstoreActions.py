@@ -7,6 +7,11 @@ serwisy = ['videopoint','helion','editio','ebookpoint','onepress','sensus','sept
 class Bookstore:
     logged = dict()
     
+    #used for login to bookstore
+    #@param webdriver webdriver object
+    #@param service text/string  (bookstore name domain)
+    #@param username text/string (login/username)
+    #@param password text/string (password)
     @staticmethod
     def loginToBookstore(webdriver, service, username, password):
         webdriver.get("https://"+service+".pl/users/index2.cgi")
@@ -18,6 +23,12 @@ class Bookstore:
         #some functions will require user to be logged in so i  added flags if user is actually logged on each service
         Bookstore.logged[service] = 1
 
+
+    #used for checking if position can be downloaded by logged in user
+    #@param webdriver webdriver object
+    #@param service text/string  (bookstore name domain)
+    #@param title text/string (title of requested position)
+    #@param format text/string ("mobi","epub","pdf", "mp3")
     @staticmethod
     def tryToDownloadPosition(webdriver, service, title, format):
         if Bookstore.logged[service] != 1:
@@ -36,6 +47,12 @@ class Bookstore:
             downloadButton = webdriver.find_element_by_css_selector(".modalbutton#"+format+"_button")
             downloadButton.click()
 
+    ###
+    #used to add giftcard code to basket
+    #@param webdriver webdriver object
+    #@param service text/string  (bookstore name domain)
+    #@param bonid text/string (giftcard code)
+    ###
     @staticmethod
     def tryToAddBonToBasket(webdriver,service,bonid):
         if Bookstore.logged[service] != 1:
@@ -57,6 +74,13 @@ class Bookstore:
 
             time.sleep(2)
     
+    ###
+    #used for adding requested position to basket
+    #@param webdriver webdriver object
+    #@param service text/string  (bookstore name domain)
+    #@param ident text/string (unique bookstore ident)
+    #@param format test/string (selected format fot requested position) example: "ebook" OR "druk"
+    ###
     @staticmethod
     def addPositionToBasket(webdriver, service, ident, format):
         #specifying format
@@ -74,12 +98,26 @@ class Bookstore:
         webdriver.find_element_by_css_selector("#addToBasket_"+ident+"_"+btn_id).click()
         time.sleep(4)
 
+    ###
+    #used for submiting shoping basket for next step of transaction
+    #@param webdriver webdriver object
+    #@param service text/string  (bookstore name domain)
+    ###
     @staticmethod
     def placeOrder(webdriver, service):
         webdriver.get("https://"+service+".pl/zakupy/edit.cgi")
         webdriver.execute_script("jQuery(\"#zamowienie .button button\").click()")
         time.sleep(4)
     
+
+    ###
+    #used for checking if solr is responsing correctly
+    #@param webdriver webdriver object
+    #@param service text/string  (bookstore name domain)
+    #@param searchPhrase text/string (text that will be send to search input)
+    #@param(optional) callbackAction function (function that will be done after succesfully checking solr response)
+    #@param(optional) callbackActionParam object (object/param that will be send to callback function)
+    ###
     @staticmethod
     def searchForPositionMainPage(webdriver, service, searchPhrase, callbackAction="", callbackActionParam=""):
         webdriver.get("https://"+service+".pl")
@@ -93,11 +131,16 @@ class Bookstore:
                 callbackAction(webdriver, callbackActionParam)
             return
         else:
-            webdriver.execute_script("alert(\"solr not ok or cannot find phrase\")")
+            webdriver.execute_script("alert(\"solr not ok or cannot find phrase\")")       
             print("error or not find on service "+service+"\n")
             Alert(driver).accept()
             time.sleep(2)
 
+    ###
+    #used as collback in solr tersting it click's requested elem of solr response html representation or clicks button showall
+    #@param webdriver webdriver object
+    #@param which int (index of position in solr response seaech that will be clicked if not specified it will click showall button)
+    ###
     @staticmethod
     def clickFromSuggestions(webdriver, which):
         if which == "":
