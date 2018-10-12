@@ -13,6 +13,7 @@ class ScreenSize(Enum):
     hd = [1280,720]
     fullhd = [1920,1080]
     iphone7 = [750,1334]
+    iphone5 = [550,800]
 
 class TestingService:
     browsers = []
@@ -45,7 +46,7 @@ class TestingService:
             screenSize = ScreenSize.hd
         for driver in self.browsers:
             driver.set_window_size(screenSize.value[0],screenSize.value[1])
-
+            
     ###
     #for checking passing arguments probably no use in testing 
     ###

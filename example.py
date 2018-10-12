@@ -1,10 +1,12 @@
 from TestingService import Browsers, TestingService, ScreenSize
 from BookstoreActions import Bookstore,serwisy
 from credentials import username,password,bon
+from selenium.webdriver.common.action_chains import ActionChains
+import time
 
 
 browsersList = [Browsers.Chrome.value]
-test = TestingService(browsersList,ScreenSize.iphone7)
+test = TestingService(browsersList,ScreenSize.iphone5)
 test.printSelectedBrowsers()
 
 def test1(driver):
@@ -47,5 +49,15 @@ def test8(driver):
 def test9(driver):
     Bookstore.searchForPositionMainPage(driver,'ebookpoint',"java",Bookstore.clickFromSuggestions)
 
-test.fireTest(test7)
+def testVideoPlayer(driver):
+    for serwis in serwisy:
+        driver.get("https://"+serwis+".pl/ksiazki/python-3-kurs-video-kompendium-efektywnego-pythonisty-bartosz-zaczynski,vpytpz.htm?xoxo=12345#format/w")
+        try:
+            element = driver.find_element_by_css_selector(".jp-controls-holder")
+        except:
+            continue
+        driver.execute_script("window.scrollTo(0, $(\"#jp_container_N\").offset().top);")
+        time.sleep(2)
+
+test.fireTest(testVideoPlayer)
 test.endTests()
